@@ -2,13 +2,11 @@ FROM --platform=linux/amd64 python:3.12-slim
 
 WORKDIR /app
 
+RUN apt-get update && apt-get install -y gcc libpq-dev && rm -rf /var/lib/apt/lists/*
+
 COPY ./server/requirements.txt .
 
-
-RUN pip install psycopg2-binary
-
-RUN pip install --no-cache-dir -r ./server/requirements.txt
-
+RUN pip install --no-cache-dir -r requirements.txt psycopg2
 
 COPY . .
 
